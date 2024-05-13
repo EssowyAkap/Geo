@@ -129,7 +129,7 @@ class Transformation:
         Returns
         -------
         returns [list] - lista wyników złożonych ze współrzędnych kartezjańskich ułożonych
-            w kolejnosci: X, Y, Z
+            w kozlejnosci: X, Y, Z
             
         '''
         returns = []
@@ -142,48 +142,7 @@ class Transformation:
             
         return(returns)
     
-        def XYZ2neu(self, X, Y, Z, X0, Y0, Z0):
-            
-            """
-         zamienia współrzędne geocentryczne XYZ dla danego punktu na współrzędne topocentryczne
-         w układzie NEU dla punktu o srodku w X0, Y0, Z0
-         Parameters
-         ----------
-         X [float] - współrzędna geocentryczna X
-         Y [float] - współrzędna geocentryczna Y
-         Z [float] - współrzędna geocentryczna Z
-         X0 [float] - współrzędna geocentryczna X0 nadajnika
-         Y0 [float] - współrzędna geocentryczna Y0 nadajnika
-         Z0 [float] - współrzędna geocentryczna Y0 nadajnika
-
-         Returns
-         -------
-         returns [list] - lista współrzędnych punktow w układzie topocentrycznym NEU, podanych
-         w kolejnsci: X, Y, Z
-
-         """
-        returns = []
-        p = np.sqrt(X0**2+Y0**2)
-        f = np.arctan(Z0/(p*(1-self.e2)))
-        while True:
-            N = self.Npu(f)
-            h = (p/np.cos(f)) - N
-            fp = f
-            f = np.arctan((Z0/p)/(1-((N*self.e2)/(N+h))))
-            if abs(fp-f)<(0.000001/206265):
-                break
-        N = self.Npu(f)
-        h = p/np.cos(f)-N
-        l = np.arctan(Y0/X0)
-        Rneu = np.array([[-np.sin(f)*np.cos(l), -np.sin(l), np.cos(f)*np.cos(l)],
-                         [-np.sin(f)*np.sin(l), np.cos(l), np.cos(f)*np.sin(l)],
-                         [np.cos(f), 0, np.sin(f)]])
         
-        for X, Y, Z in zip(X, Y, Z):
-            Xs = [X-X0, Y-Y0, Z-Z0]
-            Xr = Rneu.T@Xs
-            returns.append([Xr.T])
-        return(returns)
     
     def PL2000(self,f,l,m=0.999923):
         """
@@ -236,17 +195,62 @@ class Transformation:
             returns.append([x2000, y2000])
         return(returns)
     
-        def PL1992(self,f,l,m=0.9993):
-            """
+    def XYZ2neu(self, X, Y, Z, X0, Y0, Z0):
+        
+        """
+        zamienia współrzędne geocentryczne XYZ dla danego punktu na współrzędne topocentryczne
+        w układzie NEU dla punktu o srodku w X0, Y0, Z0
+        Parameters
+        ----------
+        X [float] - współrzędna geocentryczna X
+        Y [float] - współrzędna geocentryczna Y
+        Z [float] - współrzędna geocentryczna Z
+        X0 [float] - współrzędna geocentryczna X0 nadajnika
+        Y0 [float] - współrzędna geocentryczna Y0 nadajnika
+        Z0 [float] - współrzędna geocentryczna Y0 nadajnika
+
+         Returns
+         -------
+         returns [list] - lista współrzędnych punktow w układzie topocentrycznym NEU, podanych
+         w kolejnsci: X, Y, Z
+
+         """
+        returns = []
+        p = np.sqrt(X0**2+Y0**2)
+        f = np.arctan(Z0/(p*(1-self.e2)))
+        while True:
+             N = self.Npu(f)
+             h = (p/np.cos(f)) - N
+             fp = f
+             f = np.arctan((Z0/p)/(1-((N*self.e2)/(N+h))))
+             if abs(fp-f)<(0.000001/206265):
+                 break
+             N = self.Npu(f)
+             h = p/np.cos(f)-N
+             l = np.arctan(Y0/X0)
+             Rneu = np.array([[-np.sin(f)*np.cos(l), -np.sin(l), np.cos(f)*np.cos(l)],
+                              [-np.sin(f)*np.sin(l), np.cos(l), np.cos(f)*np.sin(l)],
+                              [np.cos(f), 0, np.sin(f)]])
+             
+             for X, Y, Z in zip(X, Y, Z):
+                 Xs = [X-X0, Y-Y0, Z-Z0]
+                 Xr = Rneu.T@Xs
+                 returns.append([Xr.T])
+        
+        
+        return(returns)
+    
+    def PL1992(self,f,l,m=0.9993):
+        """
         przelicza wspolrzedne geodezyjne f,l na współrzędne w układzie PL1992
 
          Parameters
          ----------
          f [float] - szerokosć geodezyjna danego punktu
-            
-         l [float] - długosć geodezyjna danego punktu
-            
-         m [float] - skala dla układu PL1992
+        
+        l [float] - długosć geodezyjna danego punktu
+        
+        m [float] - skala dla układu PL1992
 
 
          Returns
@@ -254,27 +258,32 @@ class Transformation:
          returns [list] - wspolrzedne w ukladzie PL1992 podane w kolejnosci: X, Y
 
          """
+        
         returns = []
         l0 = np.deg2rad(19)
         for f, l in zip (f,l):
-            b2 = self.a**2*(1-self.e2)
-            ep2 = (self.a**2-b2)/b2
-            tg = np.tan(f)
-            dl = l - l0
-            n2 = ep2*(np.cos(f)**2)
-                     
-            A0 = 1- (self.e2/4)-(3*self.e2**2/64)-(5*self.e2**3/256)
-            A2 = (3/8)*(self.e2+(self.e2**2/4)+(15*self.e2**3/128))
-            A4 = (15/256)*(self.e2**2+((3*self.e2**3)/4))
-            A6 = (35*self.e2**3)/3072
-            N = self.N(f)
-            sigma = self.a *(A0*f-A2*np.sin(2*f)+A4*np.sin(4*f)-A6*np.sin(6*f))
-            xgk = sigma+( ((dl**2/2)*N*np.sin(f)*np.cos(f))*(1+((dl**2/12)*(np.cos(f)**2)*(5 - tg**2 + 9*n2 + 4*n2**2))+((dl**4/360)*(np.cos(f)**4)*(61 - 58*tg**2 + tg**4 + 270*n2 - 330*n2*tg**2))))
-            ygk = (dl*N*np.cos(f))*(1+((dl**2/6)*(np.cos(f)**2)*(1 - tg**2 + n2))+(((dl**4/120)*(np.cos(f)**4)) * (5 - (18*tg**2) + tg**4 + (14 * n2) - (58*n2*tg**2))))
-            x92 = (xgk*m)-5300000
-            y92 = (ygk*m)+500000
-            returns.append([x92, y92])
+                b2 = self.a**2*(1-self.e2)
+                ep2 = (self.a**2-b2)/b2
+                tg = np.tan(f)
+                dl = l - l0
+                n2 = ep2*(np.cos(f)**2)
+                         
+                A0 = 1- (self.e2/4)-(3*self.e2**2/64)-(5*self.e2**3/256)
+                A2 = (3/8)*(self.e2+(self.e2**2/4)+(15*self.e2**3/128))
+                A4 = (15/256)*(self.e2**2+((3*self.e2**3)/4))
+                A6 = (35*self.e2**3)/3072
+                N = self.N(f)
+                sigma = self.a *(A0*f-A2*np.sin(2*f)+A4*np.sin(4*f)-A6*np.sin(6*f))
+                xgk = sigma+( ((dl**2/2)*N*np.sin(f)*np.cos(f))*(1+((dl**2/12)*(np.cos(f)**2)*(5 - tg**2 + 9*n2 + 4*n2**2))+((dl**4/360)*(np.cos(f)**4)*(61 - 58*tg**2 + tg**4 + 270*n2 - 330*n2*tg**2))))
+                ygk = (dl*N*np.cos(f))*(1+((dl**2/6)*(np.cos(f)**2)*(1 - tg**2 + n2))+(((dl**4/120)*(np.cos(f)**4)) * (5 - (18*tg**2) + tg**4 + (14 * n2) - (58*n2*tg**2))))
+                x92 = (xgk*m)-5300000
+                y92 = (ygk*m)+500000
+                returns.append([x92, y92])
         return(returns)
+            
+    
+        
+
     
     def wynik(self, wejsciowy_plik, rodzaj_transformacji):
         """
@@ -315,9 +324,9 @@ class Transformation:
     
 if __name__ == '__main__':
     parser = args()
-    parser.add_argument('-p', type=str, help='Przyjmuje lokalizację pliku z danymi wejściowymi. Jeśli plik znajduje się w tym samym katalogu co skrypt, wystarczy podać jego nazwę wraz z rozszerzeniem.')
-    parser.add_argument('-el', type=str, help='Przyjmuje nazwe elipsoidy. Dostepne: WGS84, GRS80 lub KRASOWSKI')
     parser.add_argument('-t', type=str, help='Przyjmuje nazwe wybranej transformacji. Dostepne: XYZ2flh, flh2XYZ, XYZ2neu, PL1992, PL2000 ')
+    parser.add_argument('-el', type=str, help='Przyjmuje daną elipsoidę. Dostepne: WGS84, GRS80 lub KRASOWSKI')
+    parser.add_argument('-p', type=str, help='przyjmuje dany plik')
     args = parser.parse_args()
 
     elipsoidy = {'WGS84':[6378137.000, 0.00669438002290], 'GRS80':[6378137.000, 0.00669438002290], 'KRASOWSKI':[6378245.000, 0.00669342162296]}
@@ -327,18 +336,18 @@ if __name__ == '__main__':
     try:
         while wybor =="TAK":
             if args.el==None:
-                args.el = input(str('Podaj nazwe elipsoidy: '))
+                args.el = input(str('Nazwa elipsoidy: '))
             if args.p==None:
                 args.p = input(str('Podaj sciezke dostępu pliku z danymi: '))
             if args.t==None:
-                args.t = input(str('Jaka transformacje wykonac?: '))
+                args.t = input(str('Podaj rodzaj żądanej transformacji: '))
                     
             obiekt = Transformation(elipsoidy[args.el.upper()])
             dane = obiekt.wynik(args.p, transformacje[args.t.upper()])
                 
-            print('Plik z wynikami zostal utworzony.')
+            print('utworzono plik z wynikami')
                 
-            wybor = input(str("Jeśli chcesz przeprowadzić kolejną transformację, wpisz TAK jeśli chcesz zakończyć, wciśnij klawisz ENTER.: ")).upper()
+            wybor = input(str("Kliknij ENTER aby zakonczyc program. W celu wykonania kolejnej transformacji wpisz ,,TAK'' ")).upper()
             args.el = None
             args.p= None
             args.t= None
