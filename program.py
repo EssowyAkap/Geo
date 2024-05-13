@@ -320,7 +320,7 @@ class Transformation:
             wyniki = self.XYZ2neu(dane[1:,0], dane[1:,1], dane[1:,2], dane[0,0], dane[0,1], dane[0,2])
             np.savetxt(f"obliczone_{rodzaj_transformacji}._{args.elp}.txt", wyniki, delimiter=' ', fmt='%0.3f %0.3f %0.3f')
     
-if _name_ == '_main_':
+if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument('-rt', type=str, help='rodzaj transformacji')
     parser.add_argument('-elp', type=str, help='przyjmuje dana elipsoide')
@@ -328,7 +328,7 @@ if _name_ == '_main_':
     args = parser.parse_args()
 
     elipsoidy = {'GRS80':[6378137.000, 0.00669438002290],'WGS84':[6378137.000, 0.00669438002290],  'KRASOWSKI':[6378245.000, 0.00669342162296]}
-    transformacje = {'BLH2XYZ': 'BLH2XYZ', 'XYZ2NEU':'XYZ2NEU', 'PL2000':'PL2000','PL1992':'PL1992', 'XYZ2BLH': 'XYZ2BLH'}
+    transformacje = {'BLH2XYZ': 'BLH2XYZ', 'XYZ2NEUP':'XYZ2NEUP', 'PL2000':'PL2000','PL1992':'PL1992', 'XYZ2BLH': 'XYZ2BLH'}
     
     wybor = "DALEJ"
     try:
