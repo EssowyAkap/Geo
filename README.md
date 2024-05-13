@@ -8,11 +8,13 @@ BL(GRS80, WGS84, ew. Krasowski) -> PL-2000 (w programie funkcja PL2000)
 BL(GRS80, WGS84, ew. Krasowski) -> PL-1992 (w programie funkcja PL1992)
 
 # Działanie programu
-Program prosi o wywołanie takich rzeczy jak nazwa elipsoidy, ścieżki do pliku tekstowego, który zawiera współrzędne, które użytkownik chce przetransformować, a także o rodzaj transformacji do wykonania. W przypadku odpowiednio wykonanych inputów program wykonuje zadanie. Jeśli, któryś z kroków został wykonany nieprawidłowo, to użytkownik zostaje o tym poinformowany.
+Program prosi o wywołanie takich rzeczy jak nazwa elipsoidy, ścieżki do pliku tekstowego, który zawiera współrzędne, które użytkownik chce przetransformować, a także o rodzaj transformacji do wykonania. W przypadku odpowiednio wykonanych ,,inputów'' program wykonuje zadanie. Jeśli, któryś z kroków został wykonany nieprawidłowo, to użytkownik zostaje o tym w odpowiedni sposób poinformowany.
 
 # Instrukcja
-Po uruchomieniu programu użytkownik zostanie poproszony o wybranie elipsoidy z pośród: "WGS84", "GRS80", "KRASOWSKI") - daje to informacje o danej elipsoidzie. Następnie użytkownik zostanie poproszony o podanie ścieżki do pliku .txt, który zawiera współrzędne do przekształcenia. Później należy wybrać rodzaj docelowej transformacji ("PL2000", "PL1992", "XYZ2NEUP", "XYZ2BLH", "BLH2XYZ"). Po zatwierdzeniu, program tworzy plik .txt (w lokalizacji, której on sam się znajduje), zawierający wyniki danych po przetransformowaniu. Użytkownik może wybrać, czy chce zakończyć działanie programu (klikając ENTER), czy dokonać kolejnego przeliczenia (równoznaczne z wpisaniem "DALEJ").
+Po uruchomieniu programu użytkownik zostanie poproszony o wybranie elipsoidy z pośród: "WGS84", "GRS80", "KRASOWSKI" - daje to kalkulatorowi informacje o parametrach danej elipsoidy. Następnie, użytkownik zostanie poproszony o podanie ścieżki do pliku .txt, który zawiera współrzędne do przekształcenia. Później należy wybrać rodzaj docelowej transformacji ("PL2000", "PL1992", "XYZ2NEUP", "XYZ2BLH", "BLH2XYZ"). Po zatwierdzeniu, program tworzy plik .txt (w lokalizacji, której on sam się znajduje), zawierający wyniki danych po przetransformowaniu. Użytkownik może wybrać, czy chce zakończyć działanie programu (klikając ENTER), czy dokonać kolejnego przeliczenia (równoznaczne z wpisaniem "DALEJ").
 
-# Uwagi 
+# Znane błędy i uwagi
+Program zwraca informacje, o błędach popełnionych przez użytkownika - w przypadku podania niewłaściwego formatu danych w pliku .txt; braku przywoływanego pliku w danym folderze; błędnego wprowadzenia nazwy danego rodzaju transformaji lub elipsoidy. Dodatkowo, czasem przy użyciu transformacji "XYZ2NEUP" program tworzy pusty plik.
 Dane w pliku .txt muszą być oddzielone od siebie spacją; dodatkowo muszą posiadać "." jako rozdzielenie części dziesiętnych od jedności.
-Program pozwala na transformowanie współrzędnych ustawionych w kilku kolejnych wierszach. Dodatkowo, czasem przy użyciu transformacji "XYZ2NEUP" program tworzy pusty plik.
+Program pozwala na transformowanie współrzędnych ustawionych w kilku kolejnych wierszach. 
+
