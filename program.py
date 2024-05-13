@@ -19,9 +19,9 @@ class Transformation:
       
        elip [list] - lista parametrów elipsoidy obrotowej
 
-       wyniki
+       Returns
        -------
-       None.
+       *brak*
 
        """
         self.a = elip[0]
@@ -90,7 +90,7 @@ class Transformation:
             X, Y, Z [float] - wspolrzedne w ukladzie ortokartezjanskim
             
         -----
-        wyniki
+        Returns
         -------
         wyniki [list] - lista współrzędnych geodezyjnych po transformacji, podane w kolejnosci:
             f, l, h
@@ -120,12 +120,13 @@ class Transformation:
         przelicza wspolrzedne geodezyjne(f, l, h) na wspolrzedne kartezjanskie(x,y,z)
         ---
         Parameters:
-            f - szerokosc geodezyjna
-            l - dlugosc geodezyjna
+            f [float]- szerokosc geodezyjna
+            l [float] - dlugosc geodezyjna
             h [float] - wysokosc elipsoidalna
             
+            wielkosci f i l nalezy podac w radianach!!!!
         -----
-        wyniki
+        Returns
         -------
         wyniki [list] - lista wyników złożonych ze współrzędnych kartezjańskich ułożonych
             w kozlejnosci: X, Y, Z
@@ -308,6 +309,10 @@ class Transformation:
             wyniki = self.flh2XYZ(np.deg2rad((dane[:,0])), np.deg2rad(dane[:,1]), dane[:,2])
             np.savetxt(f"obliczone_{rodzaj_transformacji}_{args.elp}.txt", wyniki, delimiter=' ', fmt='%0.3f %0.3f %0.3f')
 
+        elif rodzaj_transformacji == 'XYZ2NEUP':
+            wyniki = self.XYZ2neu(dane[1:,0], dane[1:,1], dane[1:,2], dane[0,0], dane[0,1], dane[0,2])
+            np.savetxt(f"obliczone_{rodzaj_transformacji}._{args.elp}.txt", wyniki, delimiter=' ', fmt='%0.3f %0.3f %0.3f')
+
         elif rodzaj_transformacji == 'PL2000':
             wyniki = self.PL2000(np.deg2rad(dane[:,0]), np.deg2rad(dane[:,1]))
             np.savetxt(f"obliczone_{rodzaj_transformacji}_{args.elp}.txt", wyniki, delimiter=' ', fmt='%0.3f %0.3f')
@@ -316,15 +321,12 @@ class Transformation:
             wyniki = self.PL1992(np.deg2rad(dane[:,0]), np.deg2rad(dane[:,1]))
             np.savetxt(f"obliczone_{rodzaj_transformacji}_{args.elp}.txt", wyniki, delimiter=' ', fmt='%0.3f %0.3f')
         
-        elif rodzaj_transformacji == 'XYZ2NEUP':
-            wyniki = self.XYZ2neu(dane[1:,0], dane[1:,1], dane[1:,2], dane[0,0], dane[0,1], dane[0,2])
-            np.savetxt(f"obliczone_{rodzaj_transformacji}._{args.elp}.txt", wyniki, delimiter=' ', fmt='%0.3f %0.3f %0.3f')
     
 if __name__ == '__main__':
     parser = ArgumentParser()
+    parser.add_argument('-plik', type=str, help='przyjmuje dany plik')
     parser.add_argument('-rt', type=str, help='rodzaj transformacji')
     parser.add_argument('-elp', type=str, help='przyjmuje dana elipsoide')
-    parser.add_argument('-plik', type=str, help='przyjmuje dany plik')
     args = parser.parse_args()
 
     elipsoidy = {'GRS80':[6378137.000, 0.00669438002290],'WGS84':[6378137.000, 0.00669438002290],  'KRASOWSKI':[6378245.000, 0.00669342162296]}
@@ -343,8 +345,7 @@ if __name__ == '__main__':
             obiekt = Transformation(elipsoidy[args.elp.upper()])
             dane = obiekt.zwroty(args.plik, transformacje[args.rt.upper()])
                 
-            print('Utworzono plik z wynikami.')
-                
+            print('Utworzono plik z wynikami.')               
             wybor = input(str("Wcisnij ENTER, zeby zakonczyc; jesli chcesz dokonac kolejnej transformacji wpisz DALEJ")).upper()
             args.rt= None
             args.elp = None
