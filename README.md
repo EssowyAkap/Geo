@@ -15,4 +15,4 @@ Po uruchomieniu programu użytkownik zostanie poproszony o wybranie elipsoidy z 
 
 # Uwagi 
 Dane w pliku .txt muszą być oddzielone od siebie spacją; dodatkowo muszą posiadać "." jako rozdzielenie części dziesiętnych od jedności.
-Program pozwala na transformowanie współrzędnych ustawionych w kilku kolejnych wierszach.
+Program pozwala na transformowanie współrzędnych ustawionych w kilku kolejnych wierszach. Dodatkowo, przy użyciu transformacji "XYZ2NEU" program tworzy pusty plik.
