@@ -23,6 +23,8 @@ Po uruchomieniu programu użytkownik zostanie poproszony o wybranie elipsoidy z 
 
 
 2. Program prosi o ścieżkę do pliku z danymi, które ma wykorzstać w celu ich przeliczenia. Użystkownik podaje ścieżkę oraz potwierdza ją tym samym sposobem co w punkcie numer 1. Pojawia się prośba o podanie rodzaju transformacji:
+
+
 ![image](https://github.com/EssowyAkap/Geo/assets/168012795/2419a157-6ff1-4c6d-9d3e-f50c1a641cb0)
 
 
