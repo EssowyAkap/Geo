@@ -46,7 +46,8 @@ Wartość przetranformowanej współrzędnej danego punktu jest zwracana w odpow
 2. Pliki z danymi współrzędnymi flh muszą być podane jak te, które zostały ukazane wyżej (plik wynikowy punktu 1). Dotyczą ich te same zasady wpisania, usytuowania i zwracania danych.
 
 # Znane błędy i uwagi
-Program zwraca informacje, o błędach popełnionych przez użytkownika - w przypadku podania niewłaściwego formatu danych w pliku .txt; braku przywoływanego pliku w danym folderze; błędnego wprowadzenia nazwy danego rodzaju transformaji lub elipsoidy. Dodatkowo, czasem przy użyciu transformacji "XYZ2NEUP" program tworzy pusty plik.
+Program zwraca informacje, o błędach popełnionych przez użytkownika - w przypadku podania niewłaściwego formatu danych w pliku .txt; braku przywoływanego pliku w danym folderze; błędnego wprowadzenia nazwy danego rodzaju transformaji lub elipsoidy. Dodatkowo, czasem przy użyciu transformacji "XYZ2NEUP" program tworzy pusty plik. Elipsoida Krasowkiego, mimo bycia dostępną do zastosowania - nie jest możliwa do prawidłowego użycia przy transformacji do układów PL-1992 i PL-2000. 
+
 Dane w pliku .txt muszą być oddzielone od siebie spacją; dodatkowo muszą posiadać "." jako rozdzielenie części dziesiętnych od jedności.
 Program pozwala na transformowanie współrzędnych ustawionych w kilku kolejnych wierszach. 
 
