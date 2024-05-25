@@ -39,9 +39,9 @@ Wartość przetranformowanej współrzędnej danego punktu jest zwracana w odpow
 
 ![image](https://github.com/EssowyAkap/Geo/assets/168012795/771fd961-b817-47a1-8c47-d26f62e4efa4)
 
-*przedstawione cyfry w pliku txt opisują numer danego punktu (np. współrzędne punktu 1 są w pierwszym wierszu, punktu numer 2 w drugim, i tak do n - dowolnej ilości punktów) i nie posiadają one praktycznego zastosowania - stanowią tylko zobrazowanie sytuacji. Użytkownik podaje czyste wartości. Dodatkowo, współrzędne w pliku .txt muszą być podane w takim formacie - nie należy podawać kilku punktów w jednym wierszu, ani jednego rodzaju współrzędnych na wiersz. Zawsze trzeba podawać więcej niż jeden punkt!!!
+*przedstawione cyfry w pliku txt opisują numer danego punktu (np. współrzędne punktu 1 są w pierwszym wierszu, punktu numer 2 w drugim, i tak do n - dowolnej ilości punktów) i nie posiadają one praktycznego zastosowania - stanowią tylko zobrazowanie sytuacji. Użytkownik podaje czyste wartości oddzielone spacją. Dodatkowo, współrzędne w pliku .txt muszą być podane w takim formacie - nie należy podawać kilku punktów w jednym wierszu, ani jednego rodzaju współrzędnych na wiersz. Zawsze trzeba podawać więcej niż jeden punkt!!!
 
-
+2. Pliki z danymi współrzędnymi flh muszą być podane jak te, które zostały ukazane wyżej (plik wynikowy punktu 1). Dotyczą ich te same zasady wpisania, usytuowania i zwracania danych.
 
 # Znane błędy i uwagi
 Program zwraca informacje, o błędach popełnionych przez użytkownika - w przypadku podania niewłaściwego formatu danych w pliku .txt; braku przywoływanego pliku w danym folderze; błędnego wprowadzenia nazwy danego rodzaju transformaji lub elipsoidy. Dodatkowo, czasem przy użyciu transformacji "XYZ2NEUP" program tworzy pusty plik.
