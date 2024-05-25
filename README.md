@@ -14,11 +14,32 @@ Program prosi o wywołanie takich rzeczy jak: nazwa elipsoidy, ścieżki do plik
 Po uruchomieniu programu użytkownik zostanie poproszony o wybranie elipsoidy z pośród: "WGS84", "GRS80", "KRASOWSKI" - daje to kalkulatorowi informacje o parametrach danej elipsoidy. Następnie, użytkownik zostanie poproszony o podanie ścieżki do pliku .txt, który zawiera współrzędne do przekształcenia. Później należy wybrać rodzaj docelowej transformacji ("PL2000", "PL1992", "XYZ2NEUP", "XYZ2BLH", "BLH2XYZ"). Po zatwierdzeniu, program tworzy plik .txt (w lokalizacji, której on sam się znajduje), zawierający wyniki danych po przetransformowaniu. Użytkownik może wybrać, czy chce zakończyć działanie programu (klikając ENTER), czy dokonać kolejnego przeliczenia (równoznaczne z wpisaniem "DALEJ"). Program wymaga podania współrzędnych geocentrycznych w metrach, a elipsoidalnych w stopniach dziesiętnych. W takich samych jednostkach wyznacza te jednostki i zwraca użytkownikowi. Przykładowe użycie:
 
 ![image](https://github.com/EssowyAkap/Geo/assets/168012795/501dffbf-0436-4724-aac0-52aab42baa19)
+
+
 1. Program wydaje polecenie ,,Elipsoida:''. Użytkownik musi wpisać nazwę danej elipsoidy, np. GRS80, po czym zatwierdza to przyciskiem ENTER.
+
+
 ![image](https://github.com/EssowyAkap/Geo/assets/168012795/7990f522-e9fa-4fa3-80d9-36232f13be9a)
+
+
 2. Program prosi o ścieżkę do pliku z danymi, które ma wykorzstać w celu ich przeliczenia. Użystkownik podaje ścieżkę oraz potwierdza ją tym samym sposobem co w punkcie numer 1. Pojawia się prośba o podanie rodzaju transformacji:
 ![image](https://github.com/EssowyAkap/Geo/assets/168012795/2419a157-6ff1-4c6d-9d3e-f50c1a641cb0)
-3. 
+
+
+3. Użytkownik wpisuje rodzaj transformacji, którą chce wykonać, zatwierdza to. Program zwraca informacje o utworzeniu pliku z wynikami oraz możliwości kontunowania działania (dokonywania kolejnych transformacji):
+
+![image](https://github.com/EssowyAkap/Geo/assets/168012795/ec29c3f6-0885-4c8c-ad60-b257521980ad)
+
+WAŻNE:
+1. Pliki z danymi współrzędnymi XYZ muszą być przedstawione w poniższy sposób:
+
+![image](https://github.com/EssowyAkap/Geo/assets/168012795/cf3b7a54-fe50-4861-ac1c-2525b0d65d6a)
+
+Wartość przetranformowanej współrzędnej danego punktu jest zwracana w odpowiadającym pierwotnie podanej jej lokalizacji. Na przykład, wartość długości geograficznej punktu 2 odpowiada lokalizacji (w pliku .txt) współrzędnej Y tego punktu:
+
+![image](https://github.com/EssowyAkap/Geo/assets/168012795/771fd961-b817-47a1-8c47-d26f62e4efa4)
+
+*przedstawione cyfry w pliku txt opisują numer danego punktu (np. współrzędne punktu 1 są w pierwszym wierszu, punktu numer 2 w drugim, i tak do n - dowolnej ilości punktów) i nie posiadają one praktycznego zastosowania - stanowią tylko zobrazowanie sytuacji. Użytkownik podaje czyste wartości. Dodatkowo, współrzędne w pliku .txt muszą być podane w takim formacie - nie należy podawać kilku punktów w jednym wierszu, ani jednego rodzaju współrzędnych na wiersz. Zawsze trzeba podawać więcej niż jeden punkt!!!
 
 
 
