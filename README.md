@@ -47,7 +47,15 @@ Wartość przetranformowanej współrzędnej danego punktu jest zwracana w odpow
 
 2. Pliki z danymi współrzędnymi flh muszą być podane jak te, które zostały ukazane wyżej (plik wynikowy punktu 1). Dotyczą ich te same zasady wpisania, usytuowania i zwracania danych.
 
-3. W celu wykonania transformacji 'XYZ2NEUP' należy podać w pierwszym wierszu pliku o rozszerzeniu .txt współrzędne środka układu, do którego użytkownik wykonuje transformacje, natomiast w pozostałych współrzędne punktów, do których użytkownik nawiązuje. Koniecznością jest, aby kolejne kolumny danych w pliku były ustawione według kolejności X, Y, Z (zarówno te w pierwszym wierszu jak i w kolejnych). 
+3. W celu wykonania transformacji 'XYZ2NEUP' należy podać w pierwszym wierszu pliku o rozszerzeniu .txt współrzędne środka układu, do którego użytkownik wykonuje transformacje, natomiast w pozostałych współrzędne punktów, do których użytkownik nawiązuje. Koniecznością jest, aby kolejne kolumny danych w pliku były ustawione według kolejności X, Y, Z (zarówno te w pierwszym wierszu jak i w kolejnych). Graficznie:
+
+![image](https://github.com/EssowyAkap/Geo/assets/168012795/9baea3f3-a7f0-4f5a-9d82-0e8de258dbed)
+
+S - punkt będący środkiem układu,
+P - kolejne punkty, które mają znaleźć się w układzie topocentrycznym punktu S.
+x, y, z - współrzędne danych punktów,
+cyfry - numer danego punktu będący funkcją n (n->♾); dowolna ilość punktów transformowanych przez użytkownika (musi być większa od 1).
+
 
 # Znane błędy i uwagi
 Program zwraca informacje, o błędach popełnionych przez użytkownika - w przypadku podania niewłaściwego formatu danych w pliku .txt; braku przywoływanego pliku w danym folderze; błędnego wprowadzenia nazwy danego rodzaju transformaji lub elipsoidy. Dodatkowo, czasem przy użyciu transformacji "XYZ2NEUP" program tworzy pusty plik. Elipsoida Krasowkiego, mimo bycia dostępną do zastosowania - nie jest możliwa do prawidłowego użycia przy transformacji do układów PL-1992 i PL-2000. 
