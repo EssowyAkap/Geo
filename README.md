@@ -33,7 +33,7 @@ Po uruchomieniu programu użytkownik zostanie poproszony o wybranie elipsoidy z 
 ![image](https://github.com/EssowyAkap/Geo/assets/168012795/ec29c3f6-0885-4c8c-ad60-b257521980ad)
 
 WAŻNE:
-1. Pliki z danymi współrzędnymi XYZ muszą być przedstawione w poniższy sposób:
+1. Pliki z danymi współrzędnymi XYZ** muszą być przedstawione w poniższy sposób:
 
 ![image](https://github.com/EssowyAkap/Geo/assets/168012795/cf3b7a54-fe50-4861-ac1c-2525b0d65d6a)
 
@@ -43,7 +43,11 @@ Wartość przetranformowanej współrzędnej danego punktu jest zwracana w odpow
 
 *przedstawione cyfry w pliku txt opisują numer danego punktu (np. współrzędne punktu 1 są w pierwszym wierszu, punktu numer 2 w drugim, i tak do n - dowolnej ilości punktów) i nie posiadają one praktycznego zastosowania - stanowią tylko zobrazowanie sytuacji. Użytkownik podaje czyste wartości oddzielone spacją. Dodatkowo, współrzędne w pliku .txt muszą być podane w takim formacie - nie należy podawać kilku punktów w jednym wierszu, ani jednego rodzaju współrzędnych na wiersz. Zawsze trzeba podawać więcej niż jeden punkt!!!
 
+** powyższe działanie nie dotyczy obliczeń na układzie NEU!!1
+
 2. Pliki z danymi współrzędnymi flh muszą być podane jak te, które zostały ukazane wyżej (plik wynikowy punktu 1). Dotyczą ich te same zasady wpisania, usytuowania i zwracania danych.
+
+3. W celu wykonania transformacji 'XYZ2NEUP' należy podać w pierwszym wierszu pliku o rozszerzeniu .txt współrzędne środka układu, do którego użytkownik wykonuje transformacje, natomiast w pozostałych współrzędne punktów, do których użytkownik nawiązuje. Koniecznością jest, aby kolejne kolumny danych w pliku były ustawione według kolejności X, Y, Z (zarówno te w pierwszym wierszu jak i w kolejnych). 
 
 # Znane błędy i uwagi
 Program zwraca informacje, o błędach popełnionych przez użytkownika - w przypadku podania niewłaściwego formatu danych w pliku .txt; braku przywoływanego pliku w danym folderze; błędnego wprowadzenia nazwy danego rodzaju transformaji lub elipsoidy. Dodatkowo, czasem przy użyciu transformacji "XYZ2NEUP" program tworzy pusty plik. Elipsoida Krasowkiego, mimo bycia dostępną do zastosowania - nie jest możliwa do prawidłowego użycia przy transformacji do układów PL-1992 i PL-2000. 
