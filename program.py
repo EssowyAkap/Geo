@@ -142,7 +142,7 @@ class Transformation:
             
         return wyniki
     
-    def XYZ2neu(self, X, Y, Z, X0, Y0, Z0):
+    def XYZ2neup(self, X, Y, Z, X0, Y0, Z0):
         
         """
         zamienia współrzędne geocentryczne XYZ dla danego punktu na współrzędne topocentryczne
@@ -310,7 +310,7 @@ class Transformation:
             np.savetxt(f"obliczone_{rodzaj_transformacji}_{args.elp}.txt", wyniki, delimiter=' ', fmt='%0.3f %0.3f %0.3f')
 
         elif rodzaj_transformacji == 'XYZ2NEUP':
-            wyniki = self.XYZ2neu(dane[1:,0], dane[1:,1], dane[1:,2], dane[0,0], dane[0,1], dane[0,2])
+            wyniki = self.XYZ2neup(dane[1:,0], dane[1:,1], dane[1:,2], dane[0,0], dane[0,1], dane[0,2])
             np.savetxt(f"obliczone_{rodzaj_transformacji}._{args.elp}.txt", wyniki, delimiter=' ', fmt='%0.3f %0.3f %0.3f')
 
         elif rodzaj_transformacji == 'PL2000':
