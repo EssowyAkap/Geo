@@ -141,6 +141,28 @@ class Transformation:
             wyniki.append([X,Y,Z])
             
         return wyniki
+    def Rneu(self, phi, lam):
+        """
+          Funkcja definiuje macierz obrotu układu NEU dla podanej elipsoidy, szerokosci i długosci geodezyjnej
+
+         Parameters
+         ----------
+         phi : [float] szerokosć geodezyjna danego punktu
+              jednostka: [rad]
+         lam : [float] długosć geodezyjna danego punktu
+              jednostka: [rad]
+
+         Returns
+         -------
+         Rneu : [array] macierz obrotu układu NEU
+                jednostka: brak
+
+         """
+        Rneu = np.array([[-np.sin(phi)*np.cos(lam), -np.sin(lam), np.cos(phi)*np.cos(lam)],
+                         [-np.sin(phi)*np.sin(lam), np.cos(lam), np.cos(phi)*np.sin(lam)],
+                         [np.cos(phi), 0, np.sin(phi)]])
+        
+        return Rneu
     
     def XYZ2neup(self, X, Y, Z, X0, Y0, Z0):
         
@@ -164,27 +186,24 @@ class Transformation:
          """
         wyniki = []
         p = np.sqrt(X0**2+Y0**2)
-        f = np.arctan(Z0/(p*(1-self.e2)))
+        fi = np.arctan(Z0/(p*(1-self.e2)))
         while True:
-             N = self.N(f)
-             h = (p/np.cos(f)) - N
-             fp = f
-             f = np.arctan((Z0/p)/(1-((N*self.e2)/(N+h))))
-             if abs(fp-f)<(0.000001/206265):
-                 break
-        N = self.N(f)
-        h = p/np.cos(f)-N
-        l = np.arctan(Y0/X0)
-        Rneu = np.array([[-np.sin(f)*np.cos(l), -np.sin(l), np.cos(f)*np.cos(l)],
-                              [-np.sin(f)*np.sin(l), np.cos(l), np.cos(f)*np.sin(l)],
-                              [np.cos(f), 0, np.sin(f)]])
-             
+            N = self.N(fi)
+            h = (p/np.cos(fi)) - N
+            fi_poprzednia = fi
+            fi = np.arctan((Z0/p)/(1-((N*self.e2)/(N+h))))
+            if abs(fi_poprzednia-fi)<(0.000001/206265):
+                break 
+        N = self.N(fi)
+        h = p/np.cos(fi) - N
+        lam = np.arctan(Y0/X0)
+        
+        R_neu = self.Rneu(fi, lam)
         for X, Y, Z in zip(X, Y, Z):
-            Xs = [X-X0, Y-Y0, Z-Z0]
-            Xr = Rneu.T@Xs
-            wyniki.append([Xr.T])
-        
-        
+            X_sr = [X-X0, Y-Y0, Z-Z0] 
+            X_rneu = R_neu.T@X_sr
+            wyniki.append(X_rneu.T)
+            
         return wyniki
         
     
